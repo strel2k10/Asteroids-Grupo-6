@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asteroids</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="900" height="700" style="border:solid 1px orange; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+
+    <script>
+        //Canvas
+        const canvas = document.querySelector('#canvas');
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        const ship_size = 30;
+        const FPS = 30;
+        let rightKey = false;
+        let leftKey = false;
+
+        //ship definitions
+        var ship = {
+            x: w / 2,
+            y: h / 2,
+            r: ship_size / 2,
+            a: 0 // convert to radians
+        }
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, w, h);
+
+        //ANIMATION CYCLE
+        function update() {
+
+            ctx.fillRect(0, 0, w, h);
+
+            // draw ship
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = ship_size / 20;
+            ctx.beginPath()
+
+            ctx.moveTo(
+                ship.x + ship.r * Math.cos(0 + ship.a),
+                ship.y - ship.r * Math.sin(0 + ship.a)
+            );
+
+            ctx.lineTo(
+                ship.x + ship.r * Math.cos(3 * Math.PI / 4 + ship.a),
+                ship.y - ship.r * Math.sin(3 * Math.PI / 4 + ship.a)
+            );
+
+            ctx.lineTo(
+                ship.x + ship.r * Math.cos(-3 * Math.PI / 4 + ship.a),
+                ship.y - ship.r * Math.sin(-3 * Math.PI / 4 + ship.a)
+            );
+
+            ctx.closePath()
+            ctx.stroke();
+
+
+            //UPDATES
+            if (rightKey) {
+                ship.a -= 0.15;
+            }
+            if (leftKey) {
+                ship.a += 0.15;
+            }
+
+
+            //new frame
+            window.requestAnimationFrame(update);
+        }
+        update();
+
+
+
+        //handler for keydown
+        function ArrowPressed(e) {
+            if (e.key == 'ArrowRight') {
+                rightKey = true; //Canvas
+
+            }
+            if (e.key == 'ArrowLeft') {
+                leftKey = true;
+            }
+
+        }
+        //handler for keyup
+        function ArrowReleased(e) {
+            if (e.key == 'ArrowRight')
+                rightKey = false;
+
+            if (e.key == 'ArrowLeft') {
+                leftKey = false;
+            }
+        }
+        
+        window.addEventListener('keydown', ArrowPressed);
+        window.addEventListener('keyup', ArrowReleased);
+    </script>
+</body>
+
+</html>
