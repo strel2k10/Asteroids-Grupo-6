@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <canvas id="canvas" width="900" height="700" style="border:solid 1px orange; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
+    <canvas id="canvas" width="900" height="700"
+        style="border:solid 1px orange; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
         Your browser does not support HTML5 Canvas.
     </canvas>
 
@@ -17,12 +18,15 @@
         //Canvas
         const canvas = document.querySelector('#canvas');
         const ctx = canvas.getContext("2d");
+
         const w = canvas.width;
         const h = canvas.height;
+        const pi = Math.PI;
         const ship_size = 30;
         const FPS = 30;
         let rightKey = false;
         let leftKey = false;
+        let spacebar = false;
 
         //ship definitions
         var ship = {
@@ -32,12 +36,41 @@
             a: 0 // convert to radians
         }
 
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, w, h);
+        class Bullet {
+            constructor(x, y, c, d) {
+                this.x = x;
+                this.y = y;
+                this.vX = 2 * Math.cos(d);
+                this.vY = 2 * Math.sin(d);
+                //d = direção -> bico da nave 
+                this.d = d;
+                this.c = c;
+                this.dispawn = false;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = this.c;
+                ctx.arc(this.x, this.y, 3, 0, 2 * pi);
+                ctx.fill();
+            }
+
+            update() {
+                if (this.y + 10 > h) {
+                    //destroy
+                    this.dispawn = true;
+                }
+                this.x += this.vX;	//update horizontal position 
+                this.y += this.vY;	//update vertical position 
+            }
+
+        }
+
+        let bullets = new Array();
 
         //ANIMATION CYCLE
-        function update() {
-
+        function render() {
+            ctx.fillStyle = "black";
             ctx.fillRect(0, 0, w, h);
 
             // draw ship
@@ -71,19 +104,53 @@
             if (leftKey) {
                 ship.a += 0.15;
             }
+            if (spacebar) {
+                let x = w / 2;
+                let y = h / 2;
+                let color = 'white';
+                let direction = 4 * 2 * Math.PI;
 
+                bullets.push(new Bullet(x, y, color, direction))
+
+            }
+            //draw & update
+            bullets.forEach(function (bullet) {
+                bullet.draw();
+                bullet.update();
+            });
 
             //new frame
-            window.requestAnimationFrame(update);
+            window.requestAnimationFrame(render);
         }
-        update();
+        render();
 
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            // check if partical has left the canvas
+            if (bullets[i].dispawn = true) {
+                bullets.splice(i, 1)
+            }
 
+        }
+        //handler para espaço = balas 
+        //32 = barra de espaço
+        function spaceBarPressed(e) {
+            if (e.keyCode == 32) {
+                spacebar = true;
+                console.log("space entrou bro")
+            }
+        }
+
+        function spaceBarReleased(e) {
+            if (e.keyCode == 32) {
+                spacebar = false;
+                console.log("space saiu bro")
+            }
+        }
 
         //handler for keydown
         function ArrowPressed(e) {
             if (e.key == 'ArrowRight') {
-                rightKey = true; //Canvas
+                rightKey = true;
 
             }
             if (e.key == 'ArrowLeft') {
@@ -100,9 +167,11 @@
                 leftKey = false;
             }
         }
-        
+
         window.addEventListener('keydown', ArrowPressed);
         window.addEventListener('keyup', ArrowReleased);
+        window.addEventListener('keydown', spaceBarPressed);
+        window.addEventListener('keyup', spaceBarReleased);
     </script>
 </body>
 
