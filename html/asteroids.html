@@ -27,6 +27,7 @@
         let rightKey = false;
         let leftKey = false;
         let spacebar = false;
+        let teclaG = false;
 
         //ship definitions
         var ship = {
@@ -60,15 +61,45 @@
                     //destroy
                     this.dispawn = true;
                 }
-                this.x += this.vX;	//update horizontal position 
-                this.y += this.vY;	//update vertical position 
+                this.x += this.vX; //update horizontal position 
+                this.y += this.vY; //update vertical position 
             }
 
         }
 
-        let bullets = new Array();
+        class Asteroid {
+            constructor(x, y, c, d) {
+                this.x = x;
+                this.y = y;
+                this.vX = 2 * Math.cos(d);
+                this.vY = 2 * Math.sin(d);
+                this.c = c;
+                this.dispawn = false;
+            }
 
-        //ANIMATION CYCLE
+            draw() {
+                ctx.fillStyle = this.c;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            update() {
+                //check Canvas vertical collisions
+                if (this.x - 10 < 0 || this.x + 10 > w)
+                    this.dispawn = true
+                //check Canvas horizontal collisions
+                if (this.y - 10 < 0 || this.y + 10 > h)
+                    this.dispawn = true
+
+                this.x += this.vX; //update horizontal position 
+                this.y += this.vY; //update vertical position 
+            }
+        }
+
+        let bullets = new Array();
+        let asteroids = new Array();
+
+        //ANIMATION CYCLE passar ship para class desenhar a nave na class com draw() e update()
         function render() {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, w, h);
@@ -104,20 +135,28 @@
             if (leftKey) {
                 ship.a += 0.15;
             }
-            if (spacebar) {
-                let x = w / 2;
-                let y = h / 2;
-                let color = 'white';
-                let direction = 4 * 2 * Math.PI;
 
-                bullets.push(new Bullet(x, y, color, direction))
-
-            }
             //draw & update
             bullets.forEach(function (bullet) {
                 bullet.draw();
                 bullet.update();
             });
+            // spawn asteroids (para já carregar no G)
+            if (teclaG) {
+                let x = 0;
+                let y = 0;
+                let color = 'white';
+                let direction = Math.random() * 2 * pi
+
+                asteroids.push(new Asteroid(x, y, color, direction))
+
+            }
+            //draw & update
+            asteroids.forEach(function (asteroid) {
+                asteroid.draw();
+                asteroid.update();
+            });
+
 
             //new frame
             window.requestAnimationFrame(render);
@@ -131,12 +170,31 @@
             }
 
         }
+
+        for (let i = asteroids.length - 1; i >= 0; i--) {
+            // check if partical has left the canvas
+            if (asteroids[i].dispawn = true) {
+                asteroids.splice(i, 1)
+            }
+
+        }
         //handler para espaço = balas 
-        //32 = barra de espaço
+        //32 = barra de espaços
         function spaceBarPressed(e) {
             if (e.keyCode == 32) {
                 spacebar = true;
                 console.log("space entrou bro")
+                // acrescentar a bala ao array. ( copiar o codigode cima e tirar)
+            }
+            if (spacebar) {
+                let x = w / 2;
+                let y = h / 2;
+                let color = 'white';
+                let direction = 4 * 2 * Math.PI;
+
+
+                bullets.push(new Bullet(x, y, color, direction))
+
             }
         }
 
@@ -146,9 +204,11 @@
                 console.log("space saiu bro")
             }
         }
+        
 
         //handler for keydown
-        function ArrowPressed(e) {
+        function KeyPressed(e) {
+            //SETAS
             if (e.key == 'ArrowRight') {
                 rightKey = true;
 
@@ -156,6 +216,25 @@
             if (e.key == 'ArrowLeft') {
                 leftKey = true;
             }
+            //tecla G
+              if (e.keyCode == 71) {
+                teclaG = true;
+                console.log("entrou o G bro")
+            }
+            //SPACEBAR
+            if (e.keyCode == 32 && !e.repeat) {
+                console.log(e.repeat)
+                let x = w / 2;
+                let y = h / 2;
+                let color = 'white';
+                let direction = 4 * 2 * Math.PI;
+
+
+                bullets.push(new Bullet(x, y, color, direction))
+                console.log("space entrou bro")
+                // acrescentar a bala ao array. ( copiar o codigode cima e tirar)
+            }
+            
 
         }
         //handler for keyup
@@ -168,9 +247,26 @@
             }
         }
 
-        window.addEventListener('keydown', ArrowPressed);
+        function asteroidSpawn(e) {
+            if (e.keyCode == 71) {
+                teclaG = true;
+                console.log("entrou o G bro")
+            }
+
+        }
+
+        function asteroidSpawnStop(e) {
+            if (e.keyCode == 71) {
+                teclaG = false;
+                console.log("saiu o G bro")
+
+            }
+        }
+        window.addEventListener('keydown', KeyPressed);
+        window.addEventListener('keyup', asteroidSpawnStop);
+       // window.addEventListener('keydown', ArrowPressed);
         window.addEventListener('keyup', ArrowReleased);
-        window.addEventListener('keydown', spaceBarPressed);
+       // window.addEventListener('keydown', spaceBarPressed);
         window.addEventListener('keyup', spaceBarReleased);
     </script>
 </body>
