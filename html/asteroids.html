@@ -28,13 +28,53 @@
         let leftKey = false;
         let spacebar = false;
         let teclaG = false;
+        let count = 0;
 
         //ship definitions
-        var ship = {
-            x: w / 2,
-            y: h / 2,
-            r: ship_size / 2,
-            a: 0 // convert to radians
+        class Ship {
+            constructor(x, y, a) {
+                this.x = w / 2,
+                    this.y = h / 2,
+                    this.r = ship_size / 2,
+                    this.a = 0 // convert to radians 
+            }
+
+            draw() {
+                ctx.strokeStyle = "white";
+                ctx.lineWidth = ship_size / 20;
+                ctx.beginPath()
+                // draw ship
+                ctx.strokeStyle = "white";
+                ctx.lineWidth = ship_size / 20;
+                ctx.beginPath()
+
+                ctx.moveTo(
+                    this.x + this.r * Math.cos(0 + this.a),
+                    this.y - this.r * Math.sin(0 + this.a)
+                );
+
+                ctx.lineTo(
+                    this.x + this.r * Math.cos(3 * Math.PI / 4 + this.a),
+                    this.y - this.r * Math.sin(3 * Math.PI / 4 + this.a)
+                );
+
+                ctx.lineTo(
+                    this.x + this.r * Math.cos(-3 * Math.PI / 4 + this.a),
+                    this.y - this.r * Math.sin(-3 * Math.PI / 4 + this.a)
+                );
+
+                ctx.closePath()
+                ctx.stroke();
+            }
+            update() {
+                if (rightKey) {
+                    this.a -= 0.15;
+                }
+                if (leftKey) {
+                    this.a += 0.15;
+                }
+            }
+
         }
 
         class Bullet {
@@ -57,10 +97,11 @@
             }
 
             update() {
-                if (this.y + 10 > h) {
-                    //destroy
-                    this.dispawn = true;
-                }
+                if (this.x - 3 < 0 || this.x + 3 > w)
+                    this.dispawn = true
+                if (this.y - 3 < 0 || this.y + 3 > h)
+                    this.dispawn = true
+
                 this.x += this.vX; //update horizontal position 
                 this.y += this.vY; //update vertical position 
             }
@@ -85,10 +126,10 @@
             }
             update() {
                 //check Canvas vertical collisions
-                if (this.x - 10 < 0 || this.x + 10 > w)
+                if (this.x - 20 < 0 || this.x + 20 > w)
                     this.dispawn = true
                 //check Canvas horizontal collisions
-                if (this.y - 10 < 0 || this.y + 10 > h)
+                if (this.y - 20 < 0 || this.y + 20 > h)
                     this.dispawn = true
 
                 this.x += this.vX; //update horizontal position 
@@ -98,58 +139,33 @@
 
         let bullets = new Array();
         let asteroids = new Array();
+        let ship = new Ship();
 
-        //ANIMATION CYCLE passar ship para class desenhar a nave na class com draw() e update()
+        //ANIMATION CYCLE
         function render() {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, w, h);
-
-            // draw ship
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = ship_size / 20;
-            ctx.beginPath()
-
-            ctx.moveTo(
-                ship.x + ship.r * Math.cos(0 + ship.a),
-                ship.y - ship.r * Math.sin(0 + ship.a)
-            );
-
-            ctx.lineTo(
-                ship.x + ship.r * Math.cos(3 * Math.PI / 4 + ship.a),
-                ship.y - ship.r * Math.sin(3 * Math.PI / 4 + ship.a)
-            );
-
-            ctx.lineTo(
-                ship.x + ship.r * Math.cos(-3 * Math.PI / 4 + ship.a),
-                ship.y - ship.r * Math.sin(-3 * Math.PI / 4 + ship.a)
-            );
-
-            ctx.closePath()
-            ctx.stroke();
+            count++
 
 
-            //UPDATES
-            if (rightKey) {
-                ship.a -= 0.15;
-            }
-            if (leftKey) {
-                ship.a += 0.15;
-            }
 
-            //draw & update
+            ship.draw();
+            ship.update();
+
+            //draw & update            
             bullets.forEach(function (bullet) {
                 bullet.draw();
                 bullet.update();
             });
-            // spawn asteroids (para já carregar no G)
-            if (teclaG) {
+            // spawn asteroids
+            if (count % 60 == 0) {
                 let x = 0;
                 let y = 0;
                 let color = 'white';
                 let direction = Math.random() * 2 * pi
+                console.log("novo asteroid")
 
                 asteroids.push(new Asteroid(x, y, color, direction))
-
             }
             //draw & update
             asteroids.forEach(function (asteroid) {
@@ -157,34 +173,34 @@
                 asteroid.update();
             });
 
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                // check if partical has left the canvas                
+                if (bullets[i].dispawn == true) {
+                    bullets.splice(i, 1)
+                }
+            }
+            for (let i = asteroids.length - 1; i >= 0; i--) {
+                // check if partical has left the canvas
+                if (asteroids[i].dispawn == true) {
+                    asteroids.splice(i, 1)
+                }
+            }
+
 
             //new frame
             window.requestAnimationFrame(render);
         }
+
+
+
         render();
 
-        for (let i = bullets.length - 1; i >= 0; i--) {
-            // check if partical has left the canvas
-            if (bullets[i].dispawn = true) {
-                bullets.splice(i, 1)
-            }
 
-        }
-
-        for (let i = asteroids.length - 1; i >= 0; i--) {
-            // check if partical has left the canvas
-            if (asteroids[i].dispawn = true) {
-                asteroids.splice(i, 1)
-            }
-
-        }
         //handler para espaço = balas 
         //32 = barra de espaços
         function spaceBarPressed(e) {
             if (e.keyCode == 32) {
                 spacebar = true;
-                console.log("space entrou bro")
-                // acrescentar a bala ao array. ( copiar o codigode cima e tirar)
             }
             if (spacebar) {
                 let x = w / 2;
@@ -192,19 +208,12 @@
                 let color = 'white';
                 let direction = 4 * 2 * Math.PI;
 
-
                 bullets.push(new Bullet(x, y, color, direction))
 
             }
         }
 
-        function spaceBarReleased(e) {
-            if (e.keyCode == 32) {
-                spacebar = false;
-                console.log("space saiu bro")
-            }
-        }
-        
+
 
         //handler for keydown
         function KeyPressed(e) {
@@ -217,24 +226,19 @@
                 leftKey = true;
             }
             //tecla G
-              if (e.keyCode == 71) {
+            if (e.keyCode == 71) {
                 teclaG = true;
-                console.log("entrou o G bro")
             }
             //SPACEBAR
             if (e.keyCode == 32 && !e.repeat) {
-                console.log(e.repeat)
                 let x = w / 2;
                 let y = h / 2;
                 let color = 'white';
                 let direction = 4 * 2 * Math.PI;
 
-
                 bullets.push(new Bullet(x, y, color, direction))
-                console.log("space entrou bro")
-                // acrescentar a bala ao array. ( copiar o codigode cima e tirar)
             }
-            
+
 
         }
         //handler for keyup
@@ -247,13 +251,7 @@
             }
         }
 
-        function asteroidSpawn(e) {
-            if (e.keyCode == 71) {
-                teclaG = true;
-                console.log("entrou o G bro")
-            }
 
-        }
 
         function asteroidSpawnStop(e) {
             if (e.keyCode == 71) {
@@ -262,12 +260,11 @@
 
             }
         }
+
+
         window.addEventListener('keydown', KeyPressed);
         window.addEventListener('keyup', asteroidSpawnStop);
-       // window.addEventListener('keydown', ArrowPressed);
         window.addEventListener('keyup', ArrowReleased);
-       // window.addEventListener('keydown', spaceBarPressed);
-        window.addEventListener('keyup', spaceBarReleased);
     </script>
 </body>
 
