@@ -29,14 +29,15 @@
         let spacebar = false;
         let teclaG = false;
         let count = 0;
+        let asteroidType = 0;
 
         //ship definitions
         class Ship {
             constructor(x, y, a) {
                 this.x = w / 2,
-                    this.y = h / 2,
-                    this.r = ship_size / 2,
-                    this.a = 0 // convert to radians 
+                this.y = h / 2,
+                this.r = ship_size / 2,
+                this.a = 0 // convert to radians 
             }
 
             draw() {
@@ -115,22 +116,28 @@
                 this.vX = 2 * Math.cos(d);
                 this.vY = 2 * Math.sin(d);
                 this.c = c;
-                this.dispawn = false;
+                this.dispawnAsteroid = false;
             }
 
             draw() {
                 ctx.fillStyle = this.c;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+                ctx.rect(this.x, this.y, 50, 50);
                 ctx.fill();
             }
             update() {
                 //check Canvas vertical collisions
-                if (this.x - 20 < 0 || this.x + 20 > w)
-                    this.dispawn = true
+                if (this.x + 50 < 0 || this.x - 50 > w) {
+                    console.log(this.x)
+                    this.dispawnAsteroid = true
+                }
+
                 //check Canvas horizontal collisions
-                if (this.y - 20 < 0 || this.y + 20 > h)
-                    this.dispawn = true
+                if (this.y + 50 < 0 || this.y - 50 > h) {
+                    this.dispawnAsteroid = true
+                    console.log(this.y)
+                }
+
 
                 this.x += this.vX; //update horizontal position 
                 this.y += this.vY; //update vertical position 
@@ -147,8 +154,6 @@
             ctx.fillRect(0, 0, w, h);
             count++
 
-
-
             ship.draw();
             ship.update();
 
@@ -159,13 +164,41 @@
             });
             // spawn asteroids
             if (count % 60 == 0) {
-                let x = 0;
-                let y = 0;
-                let color = 'white';
-                let direction = Math.random() * 2 * pi
-                console.log("novo asteroid")
 
-                asteroids.push(new Asteroid(x, y, color, direction))
+                if (asteroidType == 0) {
+                    let x = 0;
+                    let y = 0;
+                    let color = 'white';
+                    let direction = Math.random() * pi / 2
+                    asteroids.push(new Asteroid(x, y, color, direction))
+
+                } else if (asteroidType == 1) {
+                    let x = 900 - 50;
+                    let y = 0;
+                    let color = 'white';
+                    let direction = Math.random() * (pi - pi / 2) + pi / 2
+                    asteroids.push(new Asteroid(x, y, color, direction))
+                
+                } else if (asteroidType == 2) {
+                    let x = 900 - 50;
+                    let y = 700 - 50;
+                    let color = 'white';
+                    let direction = Math.random() * (3 / 2 * pi - pi) + pi
+                    asteroids.push(new Asteroid(x, y, color, direction))
+
+                } else if (asteroidType == 3) {
+                    let x = 0;
+                    let y = 700 - 50;
+                    let color = 'white';
+                    let direction = Math.random() * (2 * pi - 3 / 2 * pi) + 3 / 2 * pi
+                    asteroids.push(new Asteroid(x, y, color, direction))
+                }
+                
+                asteroidType++;
+
+                if (asteroidType == 4)
+                    asteroidType = 0;
+
             }
             //draw & update
             asteroids.forEach(function (asteroid) {
@@ -181,7 +214,8 @@
             }
             for (let i = asteroids.length - 1; i >= 0; i--) {
                 // check if partical has left the canvas
-                if (asteroids[i].dispawn == true) {
+                if (asteroids[i].dispawnAsteroid == true) {
+                    console.log("asteroid removido")
                     asteroids.splice(i, 1)
                 }
             }
