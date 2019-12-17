@@ -23,11 +23,10 @@
         const h = canvas.height;
         const pi = Math.PI;
         const ship_size = 30;
-        const FPS = 30;
         let rightKey = false;
         let leftKey = false;
+        let upKey = false;
         let spacebar = false;
-        let teclaG = false;
         let count = 0;
         let asteroidType = 0;
 
@@ -35,9 +34,9 @@
         class Ship {
             constructor(x, y, a) {
                 this.x = w / 2,
-                this.y = h / 2,
-                this.r = ship_size / 2,
-                this.a = 0 // convert to radians 
+                    this.y = h / 2,
+                    this.r = ship_size / 2,
+                    this.a = 0 // convert to radians 
             }
 
             draw() {
@@ -74,6 +73,16 @@
                 if (leftKey) {
                     this.a += 0.15;
                 }
+                if (upKey) {
+                    this.x += 0.70 + this.a;
+                    this.y -= 0.70 + this.a;
+
+                    if (this.x - ship_size / 2 < 0 || this.x + ship_size / 2 > 900 || this.y - ship_size / 2 < 0 || this.y + ship_size / 2 > 700) {
+                        this.x -= 0.70 + this.a;
+                        this.y += 0.70 + this.a;
+                    }                    
+                }
+
             }
 
         }
@@ -93,7 +102,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.fillStyle = this.c;
-                ctx.arc(this.x, this.y, 3, 0, 2 * pi);
+                ctx.arc(this.x, this.y, 2, 0, 2 * pi);
                 ctx.fill();
             }
 
@@ -178,7 +187,7 @@
                     let color = 'white';
                     let direction = Math.random() * (pi - pi / 2) + pi / 2
                     asteroids.push(new Asteroid(x, y, color, direction))
-                
+
                 } else if (asteroidType == 2) {
                     let x = 900 - 50;
                     let y = 700 - 50;
@@ -193,7 +202,7 @@
                     let direction = Math.random() * (2 * pi - 3 / 2 * pi) + 3 / 2 * pi
                     asteroids.push(new Asteroid(x, y, color, direction))
                 }
-                
+
                 asteroidType++;
 
                 if (asteroidType == 4)
@@ -229,26 +238,6 @@
 
         render();
 
-
-        //handler para espaço = balas 
-        //32 = barra de espaços
-        function spaceBarPressed(e) {
-            if (e.keyCode == 32) {
-                spacebar = true;
-            }
-            if (spacebar) {
-                let x = w / 2;
-                let y = h / 2;
-                let color = 'white';
-                let direction = 4 * 2 * Math.PI;
-
-                bullets.push(new Bullet(x, y, color, direction))
-
-            }
-        }
-
-
-
         //handler for keydown
         function KeyPressed(e) {
             //SETAS
@@ -259,21 +248,22 @@
             if (e.key == 'ArrowLeft') {
                 leftKey = true;
             }
-            //tecla G
-            if (e.keyCode == 71) {
-                teclaG = true;
+            if (e.key == 'ArrowUp') {
+                upKey = true;
             }
             //SPACEBAR
             if (e.keyCode == 32 && !e.repeat) {
-                let x = w / 2;
-                let y = h / 2;
+                let x = ship.x;
+                let y = ship.y;
                 let color = 'white';
-                let direction = 4 * 2 * Math.PI;
+                // let direction = 4 * 2 * Math.PI;
+
+                let direction = - ship.a;
 
                 bullets.push(new Bullet(x, y, color, direction))
             }
 
-
+            console.log(e.keyCode)
         }
         //handler for keyup
         function ArrowReleased(e) {
@@ -283,22 +273,16 @@
             if (e.key == 'ArrowLeft') {
                 leftKey = false;
             }
-        }
-
-
-
-        function asteroidSpawnStop(e) {
-            if (e.keyCode == 71) {
-                teclaG = false;
-                console.log("saiu o G bro")
-
+            if (e.key == 'ArrowUp') {
+                upKey = false;
             }
         }
 
 
+
         window.addEventListener('keydown', KeyPressed);
-        window.addEventListener('keyup', asteroidSpawnStop);
         window.addEventListener('keyup', ArrowReleased);
+       // window.addEventListener('keydown', spaceBarPressed);
     </script>
 </body>
 
