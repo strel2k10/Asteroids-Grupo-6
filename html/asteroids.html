@@ -36,7 +36,9 @@
                 this.x = w / 2,
                     this.y = h / 2,
                     this.r = ship_size / 2,
-                    this.a = 0 // convert to radians 
+                    this.a = 0 // convert to radians
+                    // this.noseX = w / 2 + 15;
+                    // this.noseY = h / 2; 
             }
 
             draw() {
@@ -68,19 +70,19 @@
             }
             update() {
                 if (rightKey) {
-                    this.a -= 0.15;
+                    this.a -= 0.10;
                 }
                 if (leftKey) {
-                    this.a += 0.15;
+                    this.a += 0.10;
                 }
                 if (upKey) {
-                    this.x += 0.70 + this.a;
-                    this.y -= 0.70 + this.a;
+                    this.x += 2*Math.cos(this.a);
+                    this.y -= 2*Math.sin(this.a);
 
                     if (this.x - ship_size / 2 < 0 || this.x + ship_size / 2 > 900 || this.y - ship_size / 2 < 0 || this.y + ship_size / 2 > 700) {
-                        this.x -= 0.70 + this.a;
-                        this.y += 0.70 + this.a;
-                    }                    
+                        this.x -= 2*Math.cos(this.a);
+                        this.y += 2*Math.sin(this.a);
+                    }
                 }
 
             }
@@ -91,8 +93,8 @@
             constructor(x, y, c, d) {
                 this.x = x;
                 this.y = y;
-                this.vX = 2 * Math.cos(d);
-                this.vY = 2 * Math.sin(d);
+                this.vX = 4 * Math.cos(d);
+                this.vY = 4 * Math.sin(d);
                 //d = direção -> bico da nave 
                 this.d = d;
                 this.c = c;
