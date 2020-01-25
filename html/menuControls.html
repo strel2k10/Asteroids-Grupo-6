@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Controls</title>
+    <style>
+    #backArrow:hover {
+        fill:white;
+    }
+    </style>
+</head>
+
+<body>
+    <svg width="600px" height="600"
+        style="background-color: black; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
+        <!--TÍTULO-->
+        <text font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="210" font-family="futura">CONTROLS</text>
+        <!--SETA DE RETROCEDER-->
+        <a href="menuMain.html">
+            <path transform="rotate(-90 195.478 143.463)" d="M275 5 L260 35 L290 35 Z" id="backArrow" stroke="#FFFFFF" />
+        </a>
+        <!--DESENHOS-->
+        <g id="setas">
+            <!--SETAS-->
+            <!--cima-->
+            <rect x="200" y="300" height="40" width="50" stroke="#FFFFFF" />
+            <!--baixo-->
+            <rect x="200" y="350" height="40" width="50" stroke="#FFFFFF" />
+            <!--esquerda-->
+            <rect x="140" y="350" height="40" width="50" stroke="#FFFFFF" />
+            <!--direita-->
+            <rect x="260" y="350" height="40" width="50" stroke="#FFFFFF" />
+        </g>
+
+        <!--SPACEBAR-->
+        <rect x="120" y="480" height="40" width="200" stroke="#FFFFFF" />
+    </svg>
+</body>
+
+</html>

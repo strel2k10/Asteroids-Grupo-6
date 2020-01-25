@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main Menu</title>
+    <style>
+        #start:hover {
+            fill: white;
+        }
+        
+        #controls:hover {
+            fill: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,8 +23,15 @@
         <!--TÍTULO-->
         <text font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="200" font-family="futura">ASTEROIDS</text>
         <!--MENU-->
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="320" y="290" font-family="futura">START</text>
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="260" y="360" font-family="futura">CONTROLS</text>
+        <a href="asteroids.html">
+            <text id="start" font-size="50" stroke="#ffffff" stroke-width="1" x="320" y="290"
+                font-family="futura">START</text>
+        </a>
+
+        <a href="menuControls.html">
+            <text id="controls" font-size="50" stroke="#ffffff" stroke-width="1" x="260" y="360"
+                font-family="futura">CONTROLS</text>
+        </a>
         <text font-size="50" stroke="#ffffff" stroke-width="1" x="280" y="430" font-family="futura">OPTIONS</text>
         <text font-size="50" stroke="#ffffff" stroke-width="1" x="330" y="500" font-family="futura">QUIT</text>
     </svg>
