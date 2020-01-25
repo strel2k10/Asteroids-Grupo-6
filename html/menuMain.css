@@ -1,9 +1,0 @@
-<!--baixo-->
-        <rect x="200" y="320" height="40" width="50" stroke="#FFFFFF"/>
-        <path transform="rotate(180 195.478 143.463)" d="M60 173 L40 163 L40 183 Z" stroke="#FFFFFF"/> 
-        <!--esquerda--> 
-        <rect x="140" y="320" height="40" width="50" stroke="#FFFFFF"/>
-        <path transform="rotate(-90 195.478 143.463)" d="M60 173 L40 163 L40 183 Z" stroke="#FFFFFF"/> 
-        <!--direita--> 
-        <rect x="260" y="320" height="40" width="50" stroke="#FFFFFF"/>
-        <path transform="rotate(-90 195.478 143.463)" d="M60 173 L40 163 L40 183 Z" stroke="#FFFFFF"/> 
