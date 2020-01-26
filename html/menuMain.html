@@ -7,16 +7,128 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main Menu</title>
     <style>
+        @keyframes moveit {
+            0% {
+                transform: translateY(0px);
+            }
+
+
+            100% {
+                transform: translateY(400px);
+                fill: white;
+            }
+
+
+        }
+
+        @keyframes paintit {
+            0% {
+                fill: none;
+                fill-opacity: 0%;
+            }
+
+            100% {
+                fill: white;
+                fill-opacity: 100%;
+            }
+        }
+
         #start:hover {
             fill: white;
         }
-        
+
         #controls:hover {
             fill: white;
         }
 
-        #asteroids {
-            transform: 
+        #options:hover {
+            fill: white;
+        }
+
+        #quit:hover {
+            fill: white;
+        }
+
+
+
+        #asteroids-1 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-2 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-3 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 1000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-4 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 1500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-5 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 2000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-6 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 2500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-7 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 3000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-8 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 3500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-9 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 4000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
         }
     </style>
 </head>
@@ -25,10 +137,26 @@
     <svg width="600px" height="600"
         style="background-color: black; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
         <!--TÍTULO-->
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="200" font-family="futura">A</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="200" y="200" font-family="futura">S</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="250" y="200" font-family="futura">T</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="360" y="200" font-family="futura">E</text>
+        <g id="title">
+            <text id="asteroids-1" font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="-200"
+                font-family="futura">A</text>
+            <text id="asteroids-2" font-size="100" stroke="#ffffff" stroke-width="1" x="195" y="-200"
+                font-family="futura">S</text>
+            <text id="asteroids-3" font-size="100" stroke="#ffffff" stroke-width="1" x="250" y="-200"
+                font-family="futura">T</text>
+            <text id="asteroids-4" font-size="100" stroke="#ffffff" stroke-width="1" x="315" y="-200"
+                font-family="futura">E</text>
+            <text id="asteroids-5" font-size="100" stroke="#ffffff" stroke-width="1" x="375" y="-200"
+                font-family="futura">R</text>
+            <text id="asteroids-6" font-size="100" stroke="#ffffff" stroke-width="1" x="440" y="-200"
+                font-family="futura">O</text>
+            <text id="asteroids-7" font-size="100" stroke="#ffffff" stroke-width="1" x="510" y="-200"
+                font-family="futura">I</text>
+            <text id="asteroids-8" font-size="100" stroke="#ffffff" stroke-width="1" x="550" y="-200"
+                font-family="futura">D</text>
+            <text id="asteroids-9" font-size="100" stroke="#ffffff" stroke-width="1" x="620" y="-200"
+                font-family="futura">S</text>
+        </g>
         <!--MENU-->
         <a href="asteroids.html">
             <text id="start" font-size="50" stroke="#ffffff" stroke-width="1" x="320" y="290"
@@ -38,28 +166,41 @@
             <text id="controls" font-size="50" stroke="#ffffff" stroke-width="1" x="260" y="360"
                 font-family="futura">CONTROLS</text>
         </a>
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="280" y="430" font-family="futura">OPTIONS</text>
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="330" y="500" font-family="futura">QUIT</text>
+        <a href="menuOptions.html"><text id="options" font-size="50" stroke="#ffffff" stroke-width="1" x="280" y="430"
+                font-family="futura">OPTIONS</text>
+        </a>
+        <a href="https://www.google.com/">
+            <text id="quit" font-size="50" stroke="#ffffff" stroke-width="1" x="330" y="500"
+                font-family="futura">QUIT</text>
+        </a>
 
         <!--ASTEROIDS-->
-        <path id="ast1" d="m-10.5,89l32.5,-22l29,16l-26,21l-9,-12l-26.5,-3z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast2" d="m750.5,400l33.5,-21l33,8l-23,15l-18,2l-24,23l-1.5,-27z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast3" d="m80.5,500l33.5,-21l33,8l-23,15l-18,2l-24,23l-1.5,-27z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast4" d="m500.5,100l7.5,-22l10,16l-6,22l-24,-2l12.5,-14z"  opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast5" d="m197.5,238l-16.5,-16l-48,27l29,56l1,-44l36,26l-1.5,-49z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast6" d="m600.5,230l7.5,-29l51,30l-9,32l-72,-2l22.5,-31z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast7" d="m404.5,350l-32.5,-30l-39,7l27,-29l-17,-59l40,56l37,2l-9,30l26,26l-32.5,-3z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast8" d="m250.5,30l12.5,-21l8,6l0,19l-20.5,-4z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast9" d="m650.5,580l13.5,-24l1,25l4,22l-58,-11l20,-17l19.5,5z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast10" d="m700.5,30l22.5,-19l13,24l-12,11l-8,-13l-15.5,-3z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast11" d="m280.5,620l-7.5,-64l58,26l-34,0l10,37l-26.5,1z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast12" d="m-15,350l-15.5,-33l58,-9l-21,21l43,34l-54,22l8,-17l-18.5,-18z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast13" d="m230.5,400l10.5,-14l5,11l-12,19l-3.5,-16z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast14" d="m800.5,203l-19.5,-8l5,-26l5,22l27,-1l-17.5,13z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast15" d="m400.5,520l-27.5,-10l19,-13l8.5,23z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast16" d="m162.5,127l-7.5,-30l-19,14l5,26l6,-14l15.5,4z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast17" d="m600.5,400l-16.5,-16l-48,27l29,56l1,-44l36,26l-1.5,-49z" opacity="0.3" stroke="#fff" fill="none"/>
-        <path id="ast18" d="m500.5,10l32.5,-22l29,16l-26,21l-9,-12l-26.5,-3z" opacity="0.3" stroke="#fff" fill="none"/>
+        <path id="ast1" d="m-10.5,89l32.5,-22l29,16l-26,21l-9,-12l-26.5,-3z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast2" d="m750.5,400l33.5,-21l33,8l-23,15l-18,2l-24,23l-1.5,-27z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast3" d="m80.5,500l33.5,-21l33,8l-23,15l-18,2l-24,23l-1.5,-27z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast4" d="m500.5,100l7.5,-22l10,16l-6,22l-24,-2l12.5,-14z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast5" d="m197.5,238l-16.5,-16l-48,27l29,56l1,-44l36,26l-1.5,-49z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast6" d="m600.5,230l7.5,-29l51,30l-9,32l-72,-2l22.5,-31z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast7" d="m404.5,350l-32.5,-30l-39,7l27,-29l-17,-59l40,56l37,2l-9,30l26,26l-32.5,-3z" opacity="0.3"
+            stroke="#fff" fill="none" />
+        <path id="ast8" d="m250.5,30l12.5,-21l8,6l0,19l-20.5,-4z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast9" d="m650.5,580l13.5,-24l1,25l4,22l-58,-11l20,-17l19.5,5z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast10" d="m700.5,30l22.5,-19l13,24l-12,11l-8,-13l-15.5,-3z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast11" d="m280.5,620l-7.5,-64l58,26l-34,0l10,37l-26.5,1z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast12" d="m-15,350l-15.5,-33l58,-9l-21,21l43,34l-54,22l8,-17l-18.5,-18z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast13" d="m230.5,400l10.5,-14l5,11l-12,19l-3.5,-16z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast14" d="m800.5,203l-19.5,-8l5,-26l5,22l27,-1l-17.5,13z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast15" d="m400.5,520l-27.5,-10l19,-13l8.5,23z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast16" d="m162.5,127l-7.5,-30l-19,14l5,26l6,-14l15.5,4z" opacity="0.3" stroke="#fff" fill="none" />
+        <path id="ast17" d="m600.5,400l-16.5,-16l-48,27l29,56l1,-44l36,26l-1.5,-49z" opacity="0.3" stroke="#fff"
+            fill="none" />
+        <path id="ast18" d="m500.5,10l32.5,-22l29,16l-26,21l-9,-12l-26.5,-3z" opacity="0.3" stroke="#fff" fill="none" />
+
     </svg>
 </body>
 
