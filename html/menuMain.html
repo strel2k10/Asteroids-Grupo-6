@@ -7,16 +7,128 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main Menu</title>
     <style>
+        @keyframes moveit {
+            0% {
+                transform: translateY(0px);
+            }
+
+
+            100% {
+                transform: translateY(400px);
+                fill: white;
+            }
+
+
+        }
+
+        @keyframes paintit {
+            0% {
+                fill: none;
+                fill-opacity: 0%;
+            }
+
+            100% {
+                fill: white;
+                fill-opacity: 100%;
+            }
+        }
+
         #start:hover {
             fill: white;
         }
-        
+
         #controls:hover {
             fill: white;
         }
 
-        #asteroids {
-            transform: 
+        #options:hover {
+            fill: white;
+        }
+
+        #quit:hover {
+            fill: white;
+        }
+
+
+
+        #asteroids-1 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-2 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-3 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 1000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-4 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 1500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-5 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 2000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-6 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 2500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-7 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 3000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-8 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 3500ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        #asteroids-9 {
+            animation-name: moveit;
+            animation-duration: 4s;
+            animation-direction: normal;
+            animation-delay: 4000ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
         }
     </style>
 </head>
@@ -25,10 +137,26 @@
     <svg width="600px" height="600"
         style="background-color: black; padding:0%; margin:auto;display:block;width:800px;height:600px;position:absolute;top:0%;bottom:0%;left:0%;right:0%">
         <!--TÍTULO-->
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="200" font-family="futura">A</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="200" y="200" font-family="futura">S</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="250" y="200" font-family="futura">T</text>
-        <text id="asteroids" font-size="100" stroke="#ffffff" stroke-width="1" x="360" y="200" font-family="futura">E</text>
+        <g id="title">
+            <text id="asteroids-1" font-size="100" stroke="#ffffff" stroke-width="1" x="120" y="-200"
+                font-family="futura">A</text>
+            <text id="asteroids-2" font-size="100" stroke="#ffffff" stroke-width="1" x="195" y="-200"
+                font-family="futura">S</text>
+            <text id="asteroids-3" font-size="100" stroke="#ffffff" stroke-width="1" x="250" y="-200"
+                font-family="futura">T</text>
+            <text id="asteroids-4" font-size="100" stroke="#ffffff" stroke-width="1" x="315" y="-200"
+                font-family="futura">E</text>
+            <text id="asteroids-5" font-size="100" stroke="#ffffff" stroke-width="1" x="375" y="-200"
+                font-family="futura">R</text>
+            <text id="asteroids-6" font-size="100" stroke="#ffffff" stroke-width="1" x="440" y="-200"
+                font-family="futura">O</text>
+            <text id="asteroids-7" font-size="100" stroke="#ffffff" stroke-width="1" x="510" y="-200"
+                font-family="futura">I</text>
+            <text id="asteroids-8" font-size="100" stroke="#ffffff" stroke-width="1" x="550" y="-200"
+                font-family="futura">D</text>
+            <text id="asteroids-9" font-size="100" stroke="#ffffff" stroke-width="1" x="620" y="-200"
+                font-family="futura">S</text>
+        </g>
         <!--MENU-->
         <a href="asteroids.html">
             <text id="start" font-size="50" stroke="#ffffff" stroke-width="1" x="320" y="290"
@@ -39,8 +167,13 @@
             <text id="controls" font-size="50" stroke="#ffffff" stroke-width="1" x="260" y="360"
                 font-family="futura">CONTROLS</text>
         </a>
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="280" y="430" font-family="futura">OPTIONS</text>
-        <text font-size="50" stroke="#ffffff" stroke-width="1" x="330" y="500" font-family="futura">QUIT</text>
+        <a href="menuOptions.html"><text id="options" font-size="50" stroke="#ffffff" stroke-width="1" x="280" y="430"
+                font-family="futura">OPTIONS</text>
+        </a>
+        <a href="https://www.google.com/">
+            <text id="quit" font-size="50" stroke="#ffffff" stroke-width="1" x="330" y="500"
+                font-family="futura">QUIT</text>
+        </a>
     </svg>
 </body>
 
