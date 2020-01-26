@@ -279,11 +279,19 @@
                 upKey = false;
             }
         }
+        function EscapePressed(e) {
+            if (e.key == 'Escape') {
+                console.log("ola")
+                window.location.href = "menuMain.html"
+            }
+
+        }
 
 
 
         window.addEventListener('keydown', KeyPressed);
         window.addEventListener('keyup', ArrowReleased);
+        window.addEventListener('keyup', EscapePressed);
        // window.addEventListener('keydown', spaceBarPressed);
     </script>
 </body>
